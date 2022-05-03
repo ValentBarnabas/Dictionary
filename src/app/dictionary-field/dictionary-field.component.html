@@ -1,0 +1,6 @@
+<input #inputWord class="inputField">
+<button class="translateBtn" (click)="translateWord(inputWord.value)">Translate</button>
+<br>
+<div *ngFor="let synonym of synonyms">
+    <p>{{synonym}}</p>
+</div>

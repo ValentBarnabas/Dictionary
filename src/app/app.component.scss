@@ -1,0 +1,13 @@
+.centered {
+    text-align: left;
+}
+.yandexLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media (min-width: 800px){
+    .centered {
+        text-align: center;
+    }
+}
