@@ -1,6 +1,14 @@
-<input #inputWord class="inputField">
-<button class="translateBtn" (click)="translateWord(inputWord.value)">Translate</button>
+<input #inputWord class="inputField" (keydown.enter)="translateWord(inputWord.value)" >
+<button class="translateBtn" (click)="translateWord(inputWord.value)" >Translate</button>
 <br>
-<div *ngFor="let synonym of synonyms">
-    <p>{{synonym}}</p>
+<select #from (change)="onFromChanged(from.value)">
+    <option *ngFor="let fo of fromLanguageOptions" >{{fo.toUpperCase()}}</option>
+</select>
+<select #to (change)="onToChanged(to.value)">
+    <option *ngFor="let to of toLanguageOptions" >{{to.toUpperCase()}}</option>
+</select>
+
+<div class="translations" *ngFor="let translation of translations; index as i">
+    <p class="translation" >Translation {{i+1}}: {{translation.text}}, {{translation.pos}}</p>
+    <p class="meaning" *ngFor="let mean of translation.meanings" >{{mean}}</p>
 </div>

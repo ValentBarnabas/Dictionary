@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TranslatingService {
@@ -8,42 +9,27 @@ export class TranslatingService {
 
   constructor(private http: HttpClient) { }
 
-  getLanguages() {
+  // order items in pairs (split at '-'), and add them as option in rolldown menu
+  getLanguages() : Observable<String> {
     let headers = new HttpHeaders({
       'host': 'https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key,
       'key': this.key
     })
-    this.http
-      .get<any>(('https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key), {
+    return this.http
+      .get<String>(('https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key), {
         headers: headers
       })
-      .subscribe( data => {
-          console.log(data)
-          // order items in pairs (split at '-'), and add them as option in rolldown menu
-          // first having to choose language 1, then language 2 options pop up
-        }
-      )
   }
 
-  getTranslation(word: string){
-    if (word === '') {
-      alert("Type in word to be translated")
-      return;
-    }
+  getTranslation(word: string, from: string, to: string) : Observable<any> {
     let headers = new HttpHeaders({
-      'host': 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=' + this.key + '&lang=en-de&text='+ word,
+      'host': 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=' + this.key + '&lang=' + from.toLowerCase() + '-' + to.toLowerCase + '&text='+ encodeURIComponent(word),
       'key': this.key
     })
-    this.http
-      .get<any>(('https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key='+this.key+'&lang=en-de&text='+ word), {
-        headers: headers
-      })
-      .subscribe(data => {
-        if (data.def.length === 0) {
-          alert("Word does not exist, check for typo")
-        } else {
-          console.log(data.def)
-        }
+    return this.http
+    .get<any>(('https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key='+this.key+'&lang=' + from.toLowerCase() + '-' + to.toLowerCase() + '&text='+ encodeURIComponent(word)), {
+    // .get<any>(('https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key='+this.key+'&lang=en-it&text='+ encodeURIComponent(word)), { //TODO: delete, its only for testing
+      headers: headers
       })
   }
 }
