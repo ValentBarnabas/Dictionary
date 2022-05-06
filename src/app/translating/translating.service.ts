@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable()
 export class TranslatingService {
@@ -19,17 +20,21 @@ export class TranslatingService {
       .get<String>(('https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key), {
         headers: headers
       })
+      .pipe(catchError(this.errorHandler))
   }
 
   getTranslation(word: string, from: string, to: string) : Observable<any> {
+    var url = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=' + this.key + '&lang=' + from.toLowerCase() + '-' + to.toLowerCase() + '&text='+ encodeURIComponent(word)
     let headers = new HttpHeaders({
-      'host': 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=' + this.key + '&lang=' + from.toLowerCase() + '-' + to.toLowerCase + '&text='+ encodeURIComponent(word),
+      'host': url,
       'key': this.key
     })
     return this.http
-    .get<any>(('https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key='+this.key+'&lang=' + from.toLowerCase() + '-' + to.toLowerCase() + '&text='+ encodeURIComponent(word)), {
-    // .get<any>(('https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key='+this.key+'&lang=en-it&text='+ encodeURIComponent(word)), { //TODO: delete, its only for testing
-      headers: headers
-      })
+      .get<any>(url, {headers: headers})
+      .pipe(catchError(this.errorHandler))
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(error.message || "Server error");
   }
 }

@@ -44,7 +44,8 @@ export class DictionaryFieldComponent implements OnInit {
             }
           }
         }
-      })
+      },
+      error => alert("Server error: " + error))
   }
 
   onFromChanged(selected: string) {
@@ -79,7 +80,8 @@ export class DictionaryFieldComponent implements OnInit {
         }
         this.currFrom = this.fromLanguageOptions[0]
         this.onFromChanged(this.currFrom)
-      })
+      },
+      error => alert("Server error: " + error))
   }
 }
 

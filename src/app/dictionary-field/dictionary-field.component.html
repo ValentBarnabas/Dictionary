@@ -8,7 +8,7 @@
     <option *ngFor="let to of toLanguageOptions" >{{to.toUpperCase()}}</option>
 </select>
 
-<div class="translations" *ngFor="let translation of translations; index as i">
+<div class="translations" *ngFor="let translation of translations ; index as i "> <!-- tried adding async pipeline, but couldnt -->
     <p class="translation" >Translation {{i+1}}: {{translation.text}}, {{translation.pos}}</p>
     <p class="meaning" *ngFor="let mean of translation.meanings" >{{mean}}</p>
 </div>
