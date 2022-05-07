@@ -1,18 +1,20 @@
-<div class="centered">
-  <h1>
-    Welcome to {{title}}
-  </h1>
-</div>
+<header>
+  <div class="centered">
+    <h1 class="title">
+      Welcome to {{title}}
+    </h1>
+  </div>
+</header>
 
-<div>
-  <!-- header with app name and icon -->
-  <!-- main part with inputField, outputField, and synonyms -->
-  <!-- input and output language from rolldown menu, api/languages -->
-  <app-dictionary-field></app-dictionary-field>
-</div>
+<body>
+  <div>
+    <app-dictionary-field></app-dictionary-field>
+  </div>
+  <div id="credits">
+    <p class="signo">Author: Barnabas Valent, 2022.</p>
+    <a class='yandexLink' href="https://tech.yandex.com/dictionary" target="_blank">Powered by Yandex.Dictionary</a>
+  </div>
+</body>
 
-<div>
-  <a class='yandexLink' href="https://tech.yandex.com/dictionary" target="_blank">"Powered by Yandex.Dictionary" </a>
-  <!-- TODO: color must match color of main text, and size must match size of main text -->
-</div>
+
 <router-outlet></router-outlet>

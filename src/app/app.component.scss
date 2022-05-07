@@ -1,11 +1,28 @@
 .centered {
     text-align: left;
+    margin-top: 10vw;
+}
+
+.title {
+    font-size: 6vw;
+}
+
+#credits {
+    margin-top: auto;
+}
+
+.signo {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-right: 1vw;
+    text-align: right;
 }
 .yandexLink {
+    margin-right: 1vw;
+    margin-bottom: 1vw;
     text-decoration: none;
     color: inherit;
-    position: absolute;
-    bottom: 0px;
+    float: right;
 }
 
 @media (min-width: 800px){

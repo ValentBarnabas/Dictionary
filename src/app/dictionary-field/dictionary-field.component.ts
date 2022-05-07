@@ -27,25 +27,25 @@ export class DictionaryFieldComponent implements OnInit {
       return;
     }
     this._translatingService.getTranslation(inputWord, this.currFrom, this.currTo)
-      .subscribe(data => {
-        console.log(data.def)
-        if (data.def.length === 0) {
-          alert("Word does not exist, check for typo")
-        } else {
-          this.translations = []
-          for (let i in data.def) {
-            for (let j in data.def[i].tr) {
-              let currTrans = new Translation(data.def[i].tr[j].text, data.def[i].tr[j].pos)
-              for (let k in data.def[i].tr[j].mean) {
-                console.log(data.def[i].tr[j].text + " " + data.def[i].tr[j].pos + " " + data.def[i].tr[j].mean[k].text)
-                currTrans.addMeaning(data.def[i].tr[j].mean[k].text)
-              }
-              this.translations.push(currTrans)
-            }
+      .subscribe( data => this.processTranslation(data),
+                  error => alert("Server error: " + error))
+  }
+
+  processTranslation(data: any) {
+    if (data.def.length === 0) {
+      alert("Word does not exist, check for typo")
+    } else {
+      this.translations = []
+      for (let i in data.def) {
+        for (let j in data.def[i].tr) {
+          let currTrans = new Translation(data.def[i].tr[j].text, data.def[i].tr[j].pos)
+          for (let k in data.def[i].tr[j].mean) {
+            currTrans.addMeaning(data.def[i].tr[j].mean[k].text)
           }
+          this.translations.push(currTrans)
         }
-      },
-      error => alert("Server error: " + error))
+      }
+    }
   }
 
   onFromChanged(selected: string) {
@@ -57,7 +57,6 @@ export class DictionaryFieldComponent implements OnInit {
       }
     }
     this.currTo = this.toLanguageOptions[0]
-    //TODO: update displayed value in #to
   }
 
   onToChanged(selected: string) {

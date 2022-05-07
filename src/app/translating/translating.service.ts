@@ -12,25 +12,16 @@ export class TranslatingService {
 
   // order items in pairs (split at '-'), and add them as option in rolldown menu
   getLanguages() : Observable<String> {
-    let headers = new HttpHeaders({
-      'host': 'https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key,
-      'key': this.key
-    })
+    var url = 'https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key
     return this.http
-      .get<String>(('https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key), {
-        headers: headers
-      })
+      .get<String>((url))
       .pipe(catchError(this.errorHandler))
   }
 
   getTranslation(word: string, from: string, to: string) : Observable<any> {
     var url = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=' + this.key + '&lang=' + from.toLowerCase() + '-' + to.toLowerCase() + '&text='+ encodeURIComponent(word)
-    let headers = new HttpHeaders({
-      'host': url,
-      'key': this.key
-    })
     return this.http
-      .get<any>(url, {headers: headers})
+      .get<any>(url)
       .pipe(catchError(this.errorHandler))
   }
 

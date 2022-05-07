@@ -1,14 +1,30 @@
-<input #inputWord class="inputField" (keydown.enter)="translateWord(inputWord.value)" >
-<button class="translateBtn" (click)="translateWord(inputWord.value)" >Translate</button>
-<br>
-<select #from (change)="onFromChanged(from.value)">
-    <option *ngFor="let fo of fromLanguageOptions" >{{fo.toUpperCase()}}</option>
-</select>
-<select #to (change)="onToChanged(to.value)">
-    <option *ngFor="let to of toLanguageOptions" >{{to.toUpperCase()}}</option>
-</select>
+<mat-form-field appearance="fill" class="fromLanguage">
+    <mat-label>From language</mat-label>
+    <select matNativeControl appearance="fill" #from (change)="onFromChanged(from.value)">
+        <option *ngFor="let fo of fromLanguageOptions" >{{fo.toUpperCase()}}</option>
+    </select>
+</mat-form-field>
 
-<div class="translations" *ngFor="let translation of translations ; index as i "> <!-- tried adding async pipeline, but couldnt -->
-    <p class="translation" >Translation {{i+1}}: {{translation.text}}, {{translation.pos}}</p>
-    <p class="meaning" *ngFor="let mean of translation.meanings" >{{mean}}</p>
+<mat-form-field appearance="fill" class="toLanguage">
+    <mat-label>To language</mat-label>
+    <select matNativeControl #to (change)="onToChanged(to.value)">
+            <option *ngFor="let to of toLanguageOptions" >{{to.toUpperCase()}}</option>
+    </select>
+</mat-form-field>
+<br>
+
+<mat-form-field class="inputField">
+    <input matInput #inputWord (keydown.enter)="translateWord(inputWord.value)" >
+</mat-form-field>
+<button mat-stroked-button class="translateBtn" (click)="translateWord(inputWord.value)" >Translate</button>
+<br>
+
+<!-- tried adding async pipeline, but couldnt -->
+<div *ngFor="let translation of translations ; index as i ">
+    <mat-card>
+        <mat-card-title >Translation {{i+1}}: {{translation.text}}</mat-card-title>
+        <mat-card-subtitle >{{translation.pos}}</mat-card-subtitle>
+        <mat-card-content *ngFor="let mean of translation.meanings" >{{mean}}</mat-card-content>
+    </mat-card>
+    <br>
 </div>
