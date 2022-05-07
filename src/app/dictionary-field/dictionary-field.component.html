@@ -19,7 +19,7 @@
 <button mat-stroked-button class="translateBtn" (click)="translateWord(inputWord.value)" >Translate</button>
 <br>
 
-<!-- tried adding async pipeline, but couldnt -->
+<!-- tried adding async pipeline for even more asynchrony, but couldnt -->
 <div *ngFor="let translation of translations ; index as i ">
     <mat-card>
         <mat-card-title >Translation {{i+1}}: {{translation.text}}</mat-card-title>

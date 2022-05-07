@@ -1,3 +1,7 @@
+/**
+ * Class for handling necessary translation parts.
+ * Contains the translation, its part-of-speach and meanings.
+ */
 export class Translation {
     constructor(text: string, pos: string) {
         this.meanings = []

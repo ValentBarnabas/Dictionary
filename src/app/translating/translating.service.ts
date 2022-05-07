@@ -3,6 +3,11 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 
+/**
+ * Service for calling Yandex Dictionary API
+ * Has functions for getting a list of translation language pairs,
+ * translating a given word, and handling HTTP errors.
+ */
 @Injectable()
 export class TranslatingService {
 
@@ -10,7 +15,11 @@ export class TranslatingService {
 
   constructor(private http: HttpClient) { }
 
-  // order items in pairs (split at '-'), and add them as option in rolldown menu
+  /**
+   * Async function for getting possible translation directions.
+   * 
+   * @returns String of country ISO codes, in a form of xx-yy, where xy is from and yy is to
+   */
   getLanguages() : Observable<String> {
     var url = 'https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key='+this.key
     return this.http
@@ -18,6 +27,14 @@ export class TranslatingService {
       .pipe(catchError(this.errorHandler))
   }
 
+  /**
+   * Returns all possible translations of the given word in a specially formatted JSON object 
+   * 
+   * @param word word to be translated
+   * @param from source language
+   * @param to destination language
+   * @returns any object (specially formatted JSON)
+   */
   getTranslation(word: string, from: string, to: string) : Observable<any> {
     var url = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=' + this.key + '&lang=' + from.toLowerCase() + '-' + to.toLowerCase() + '&text='+ encodeURIComponent(word)
     return this.http
@@ -25,6 +42,12 @@ export class TranslatingService {
       .pipe(catchError(this.errorHandler))
   }
 
+  /**
+   * Function for handling HTTP errors. Returns a new error
+   * 
+   * @param error an HTTP error message
+   * @returns a new error
+   */
   errorHandler(error: HttpErrorResponse) {
     return throwError(error.message || "Server error");
   }
