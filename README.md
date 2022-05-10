@@ -1,5 +1,41 @@
 # Dictionary
 
+Homework assignment for **Client Side Technologies** course at the *Budapest University of Technology and Economics*.
+
+# Main Functions
+
+- Ability to select source and destination languages
+- Can only select solvable language pairings
+- Searches for all fitting meanings of the given word, produces a list of them all
+- Shows all translations on separate cards for more pleasing and easier to understand visuals
+- Uses Material Design for familiar look
+- Even synonymes if some are found
+- Handles both user input error and server errors, alerts the user about them
+
+# Explored Technologies
+
+- Angular 13+
+- Angular modules, components, services, templates, data-binding
+- Asynchronous HTTP communication in Angular
+- Yandex Dictionary API
+- Material Design
+
+# Presentational Images
+
+- Base appearance of application
+
+![Base appearance of appliaction](/documentation/frontPage_base.png)
+
+- Resolutions for given search
+
+![Product of given search](/documentation/frontPage_cookSearch.png)
+
+- Alert for typo error
+
+![Alert for error](/documentation/frontPage_typoError.png)
+
+# Angular
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
 
 ## Development server
