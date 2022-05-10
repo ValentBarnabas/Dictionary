@@ -9,7 +9,7 @@ Homework assignment for **Client Side Technologies** course at the *Budapest Uni
 - Searches for all fitting meanings of the given word, produces a list of them all
 - Shows all translations on separate cards for more pleasing and easier to understand visuals
 - Uses Material Design for familiar look
-- Even synonymes if some are found
+- Even synonyms if some are found
 - Handles both user input error and server errors, alerts the user about them
 
 # Explored Technologies
